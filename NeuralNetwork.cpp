@@ -1,6 +1,6 @@
 #include "NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork(int[] size, ActivationFunctionType activationFunctionType){
+NeuralNetwork::NeuralNetwork(int size[], ActivationFunctionType activationFunctionType){
   // This will find us the length of the array
   m_size = size;
   m_activationFunctionType = activationFunctionType;

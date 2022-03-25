@@ -1,5 +1,6 @@
 #include <functional>
 #include <vector>
+#include <map>
 #include "Neuron.h"
 #include "ActivationFunctions.h"
 
@@ -14,7 +15,7 @@ template <typename T_INPUT, typename T_OUTPUT>
 class NeuralNetwork{
   public:
 
-    NeuralNetwork(int[] size, ActivationFunctionType activationFunctionEnum);
+    NeuralNetwork(int size[], ActivationFunctionType ActivationFunctionType);
 
     void CreateNetwork();
 
@@ -24,7 +25,6 @@ class NeuralNetwork{
 
 
     T_OUTPUT operator()(T_INPUT input);
-
     
   private:
     

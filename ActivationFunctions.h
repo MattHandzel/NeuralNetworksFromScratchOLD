@@ -8,5 +8,5 @@ class ActivationFunctions{
   static double sigmoid(double value);
   static double tanh(double value);
   static double relu(double value);
-
-}
+  double E = 2.71828183;
+};

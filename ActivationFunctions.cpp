@@ -9,11 +9,11 @@ double ActivationFunctions::linear(double value){
     }
 
 double ActivationFunctions::sigmoid(double value){
-    return 1 / (1 + pow(math.E, -value));
+    return 1 / (1 + pow(E, -value));
 }
 
 double ActivationFunctions::tanh(double value){
-      return (1 / (1 + pow(math.E, -value)) - 0.5) * 2;
+      return (1 / (1 + pow(E, -value)) - 0.5) * 2;
   }
 
 double ActivationFunctions::relu(double value){

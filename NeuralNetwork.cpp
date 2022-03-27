@@ -1,23 +1,22 @@
 #include "NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork(int size[], ActivationFunctionType activationFunctionType){
+NeuralNetwork::NeuralNetwork(int shape[], ActivationFunctionType activationFunctionType){
   // This will find us the length of the array
-  m_size = size;
+  m_shape = shape;
   m_activationFunctionType = activationFunctionType;
   
-  int arraySize = std::sizeof(size)/std::sizeof(size[0]);
-  for(int i = 0; i < arraySize; i++){
-    
+  int arrayShape = std::sizeof(m_shape)/std::sizeof(m_shape[0]);
+  for(int i = 0; i < arrayShape; i++){
   }
-
 }
 
 void NeuralNetwork::CreateLayer(int size){
-  Neuron[size] neurons;
+  Neuron neurons[size];
   for(int i = 0; i < size; i++){
     neurons[i] = CreateNeuron();
   }
   m_layers[m_layers.size()] = neurons;
+
 }
 
 Neuron NeuralNetwork::CreateNeuron(){
@@ -26,7 +25,7 @@ Neuron NeuralNetwork::CreateNeuron(){
   // If you want it to have a different initial bias then do it here.
   double initialBias = 0;
   switch(m_activationFunctionType){
-      case(ActivationFunctionType::linear){
+      case(ActivationFunctionType::linear) : {
         Neuron n = Neuron();
         n.SetActivationFunction(ActivationFunctions::linear);
       }

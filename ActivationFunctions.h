@@ -6,7 +6,6 @@ class ActivationFunctions{
 
   static double linear(double value);
   static double sigmoid(double value);
-  static std::function<double(double)> tanh = tanh; 
   static double relu(double value);
   double E = 2.71828183;
 };

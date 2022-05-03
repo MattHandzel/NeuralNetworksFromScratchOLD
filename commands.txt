@@ -1,0 +1,1 @@
+g++ Neuron.cpp ActivationFunctions.cpp NeuralNetwork.cpp ./main.cpp -o ./yourmom

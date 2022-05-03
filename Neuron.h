@@ -1,5 +1,7 @@
 #include <vector>
 #include <functional>
+#include <string>
+#include "ActivationFunctions.h"
 
 class Neuron{
  public:
@@ -18,14 +20,15 @@ class Neuron{
     double GetValue();
     void SetValue(double value);
 
-    std::vector<std::pair<Neuron*,double>> m_connections;
-  
-    static double linear(double value);
- private: 
+    std::vector<std::pair<Neuron *, double>> m_connections;
+
+    std::string ConnectionsToString();
+
+ private:
     double m_bias = 0;
     double m_weight = 0;    
     double m_value = 0;
   
     //double *m_activationFunction(double) = &Neuron::linear;
-    std::function<double(double)> m_activationFunction;
+    std::function<double(double)> m_activationFunction = ActivationFunctions::linear;
 };

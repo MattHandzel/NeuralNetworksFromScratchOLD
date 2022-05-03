@@ -1,8 +1,7 @@
 #include <functional>
 #include <vector>
 #include <map>
-#include "Neuron.h"
-#include "ActivationFunctions.h"
+#include "NeuralLayer.h"
 
 enum ActivationFunctionType{
   linear,
@@ -19,18 +18,13 @@ class NeuralNetwork{
 
     /// TODO:: Make it so that you can create a layer of neurons that have a different activation function than the main :D
     void CreateLayer(int shape);
-    Neuron CreateNeuron();
-    
-  private:
-    
 
-    // These might need to be re-worked in the future if we make it so that each layer can have its own activation function
-    ActivationFunctionType m_activationFunctionType;
-    std::function<double(double)> m_activationFunction;
+    // private:
 
     // The actual layers of neurons
-    std::map<int, std::vector<Neuron>> m_layers;
+    std::vector<NeuralLayer> m_layers;
+
+    int m_networkDepth = 0;
 
     // shape of the neural network
-    int m_shape[];
 };

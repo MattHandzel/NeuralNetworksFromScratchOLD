@@ -6,26 +6,20 @@
 #include "time.h"
 #include <vector>
 
-#include "Neuron.h"
-#include "ActivationFunctions.h"
+#include "NeuralNetwork.h"
 
-std::pair<Neuron*, double> GetPair(Neuron neuron, double weight){
-  return std::pair<Neuron*, double>(&neuron, weight);
+std::pair<Neuron *, double> GetPair(Neuron neuron, double weight)
+{
+  return std::pair<Neuron *, double>(&neuron, weight);
 }
 
-int main() {
-    Neuron n0 = Neuron(1);
-    Neuron n1 = Neuron(0);
-    Neuron n2 = Neuron(0);
+int main()
+{
+  int shape[] = {1, 1, 1};
+  NeuralNetwork nn = NeuralNetwork(shape, ActivationFunctionType::relu);
+  nn.CreateLayer(2);
 
-    n0.SetActivationFunction(Neuron::linear);
-    n1.SetActivationFunction(Neuron::linear);
-    n2.SetActivationFunction(Neuron::linear);
-  
-    n2.AddConnection(std::pair<Neuron*, double>(&n1, 1));
-    n1.AddConnection(GetPair(n0, 1));
-  
-    std::cout << n2.GetValue();
-    
-    return 0;
+  auto search = nn.m_layers.find(0);
+  std::cout << &search->second.at(0);
+  return 0;
 }

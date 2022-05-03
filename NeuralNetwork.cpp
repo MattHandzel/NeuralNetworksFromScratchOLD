@@ -1,33 +1,24 @@
 #include "NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork(int shape[], ActivationFunctionType activationFunctionType){
+NeuralNetwork::NeuralNetwork(int shape[], ActivationFunctionType activationFunctionType)
+{
   // This will find us the length of the array
-  m_shape = shape;
-  m_activationFunctionType = activationFunctionType;
-  
-  int arrayShape = std::sizeof(m_shape)/std::sizeof(m_shape[0]);
-  for(int i = 0; i < arrayShape; i++){
+  int lengthOfArray = sizeof shape / sizeof *shape;
+
+  for (int i = 0; i < lengthOfArray; i++)
+  {
+    this->CreateLayer(shape[i]);
   }
+
+  this->m_networkDepth = lengthOfArray;
 }
 
-void NeuralNetwork::CreateLayer(int size){
-  Neuron neurons[size];
-  for(int i = 0; i < size; i++){
-    neurons[i] = CreateNeuron();
-  }
-  m_layers[m_layers.size()] = neurons;
-
+void NeuralNetwork::CreateNetwork()
+{
 }
 
-Neuron NeuralNetwork::CreateNeuron(){
-  // This function will return a neuron created based upon what initial values we want it to have, ex: if we want them to have a bias, what would that be? 0? randomly made? what distribution? etc
-  
-  // If you want it to have a different initial bias then do it here.
-  double initialBias = 0;
-  switch(m_activationFunctionType){
-      case(ActivationFunctionType::linear) : {
-        Neuron n = Neuron();
-        n.SetActivationFunction(ActivationFunctions::linear);
-      }
-  }
+void NeuralNetwork::CreateLayer(int size)
+{
+  // || In the future you can make it so that you pass in a different activation function
+  m_layers.push_back(NeuralLayer(size, ActivationFunctions::relu));
 }

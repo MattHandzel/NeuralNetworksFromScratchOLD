@@ -3,6 +3,7 @@
 
 NeuralLayer::NeuralLayer(int size, std::function<double(double)> activationFunction) : m_layerSize(size), m_activationFunction(activationFunction)
 {
+    // Creates neurons based on the size of the layer
     for (int i = 0; i < size; i++)
     {
         this->m_neurons.push_back(CreateNeuron());
@@ -29,10 +30,13 @@ void NeuralLayer::ProcessLayer()
 
 void NeuralLayer::SetInput(std::vector<double> input)
 {
+    // If the size of the input is not the same as the layer size then it will throw an exception
     if (input.size() != m_layerSize)
     {
         throw std::invalid_argument("Input (size: " + std::to_string(input.size()) + " )" + "must be equal in size to layer size (size: " + std::to_string(m_layerSize) + ") ");
     }
+
+    // Set the value of the neurons in the layer to the inputs
     for (int i = 0; i < m_layerSize; i++)
     {
         m_neurons.at(i).SetValue(input[i]);
@@ -47,7 +51,11 @@ std::vector<Neuron> &NeuralLayer::GetNeurons()
 void NeuralLayer::ConnectLayer(NeuralLayer other)
 {
     this->m_previous = &other;
+
+    // Change the weight value here, default to 1, you might wanna make it random, i dunno how this stuff works
     double weightValue = 1;
+
+    // For each neuron in this layer, connect it to the neuron in the other layer
     for (int i = 0; i < m_layerSize; i++)
     {
         for (int b = 0; b < other.GetLayerSize(); b++)
@@ -64,6 +72,7 @@ int NeuralLayer::GetLayerSize()
 
 std::string NeuralLayer::ConnectionsToString()
 {
+    // Concatenates the connection message from all of the neurons into one string
     std::string message = "";
     for (Neuron n : m_neurons)
     {
@@ -79,11 +88,14 @@ void NeuralLayer::operator()(NeuralLayer otherLayer)
 
 void NeuralLayer::operator()(std::vector<double> input)
 {
+    // If there is another layer before this layer, then set the input of that layer to the passed inputs
     if (m_previous != NULL)
     {
         m_previous->SetInput(input);
         return;
     }
+
+    // If that is not true, set the values of the neurons to the input
     this->SetInput(input);
 }
 
@@ -91,7 +103,7 @@ std::string NeuralLayer::ValuesToString()
 {
     std::string message = "";
     int i = 0;
-    std::cout << "ASD" << std::endl;
+    // for each neuron, get the value and concatenate it into one string
     for (Neuron n : m_neurons)
     {
         message += "NEURON:\n\tVALUE:\t" + std::to_string(n.GetValue()) + "\n";

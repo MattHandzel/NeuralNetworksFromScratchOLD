@@ -4,10 +4,10 @@ class NeuralLayer
 {
 public:
     NeuralLayer(int size, std::function<double(double)> activationFunction);
-    Neuron CreateNeuron();
+    Neuron *CreateNeuron();
     void ProcessLayer();
     void ConnectLayer(NeuralLayer other);
-    std::vector<Neuron> &GetNeurons();
+    std::vector<Neuron *> &GetNeurons();
     std::string ConnectionsToString();
     std::string ValuesToString();
     int GetLayerSize();
@@ -18,6 +18,6 @@ public:
 private:
     int m_layerSize;
     std::function<double(double)> m_activationFunction;
-    std::vector<Neuron> m_neurons;
+    std::vector<Neuron *> m_neurons;
     NeuralLayer *m_previous = NULL;
 };

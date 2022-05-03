@@ -9,21 +9,21 @@ NeuralLayer::NeuralLayer(int size, std::function<double(double)> activationFunct
     }
 }
 
-Neuron NeuralLayer::CreateNeuron()
+Neuron* NeuralLayer::CreateNeuron()
 {
     // Initial bias is so that in the future we can make the initial bias 0, random, etc.
     double initialBias = 0;
     Neuron n = Neuron(initialBias);
     n.SetActivationFunction(m_activationFunction);
 
-    return n;
+    return &n;
 }
 
 void NeuralLayer::ProcessLayer()
 {
-    for (Neuron n : m_neurons)
+    for (Neuron *n : m_neurons)
     {
-        n.GetValue();
+        n->GetValue();
     }
 }
 
@@ -35,11 +35,11 @@ void NeuralLayer::SetInput(std::vector<double> input)
     }
     for (int i = 0; i < m_layerSize; i++)
     {
-        m_neurons.at(i).SetValue(input[i]);
+        m_neurons[i]->SetValue(input[i]);
     }
 }
 
-std::vector<Neuron> &NeuralLayer::GetNeurons()
+std::vector<Neuron *> &NeuralLayer::GetNeurons()
 {
     return m_neurons;
 }
@@ -52,7 +52,7 @@ void NeuralLayer::ConnectLayer(NeuralLayer other)
     {
         for (int b = 0; b < other.GetLayerSize(); b++)
         {
-            m_neurons[i].AddConnection(std::pair<Neuron *, double>(&other.m_neurons[b], weightValue));
+            m_neurons[i]->AddConnection(std::pair<Neuron *, double>(other.m_neurons[b], weightValue));
         }
     }
 }
@@ -65,9 +65,9 @@ int NeuralLayer::GetLayerSize()
 std::string NeuralLayer::ConnectionsToString()
 {
     std::string message = "";
-    for (Neuron n : m_neurons)
+    for (Neuron *n : m_neurons)
     {
-        message += n.ConnectionsToString();
+        message += n->ConnectionsToString();
     }
     return message;
 }
@@ -92,9 +92,9 @@ std::string NeuralLayer::ValuesToString()
     std::string message = "";
     int i = 0;
     std::cout << "ASD" << std::endl;
-    for (Neuron n : m_neurons)
+    for (Neuron *n : m_neurons)
     {
-        message += "NEURON:\n\tVALUE:\t" + std::to_string(n.GetValue()) + "\n";
+        message += "NEURON:\n\tVALUE:\t" + std::to_string(n->GetValue()) + "\n";
     }
     return message;
 }
